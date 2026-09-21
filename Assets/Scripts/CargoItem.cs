@@ -1,29 +1,31 @@
 using UnityEngine;
 
-
+public enum CargoType
+{
+    Standard,
+    Fragile,
+    Heavy,
+    Stacked
+}
 public class CargoItem : MonoBehaviour
 {
+    public CargoType cargoType = CargoType.Standard;
+    public bool IsBroken { get; private set; }
     public bool isVip;
+
     public int baseScore = 10;
     public int vipScoreMultiplier = 1;
 
-    public CargoType cargoType = CargoType.Standard;
-
     public float fragileTiltSpeedLimit = 20f;
+    public float heavyMoveSpeedMultiplier = 0.6f;
 
-   public float heavyMoveSpeedMultiplier = 0.6f;
-
-    public bool IsBroken { get; private set; }
+    public string sectionName;
+    public string targetSlotId;
 
     private Rigidbody rb;
 
-    public enum CargoType
-    {
-        Standard,
-        Fragile,
-        Heavy,
-        Stacked
-    }
+   
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
@@ -63,6 +65,4 @@ public class CargoItem : MonoBehaviour
         if (IsBroken) return 0;
         return isVip ? baseScore * vipScoreMultiplier : baseScore;
     }
-
-   
 }

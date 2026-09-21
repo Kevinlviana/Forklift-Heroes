@@ -3,18 +3,30 @@ using UnityEngine.Events;
 
 public class GameManager : MonoBehaviour
 {
+
     public static GameManager Instance { get; private set; }
 
+    [SerializeField] private int maxMistakes = 3;
     [SerializeField] private float roundDuration = 120f;
-    private float timeRemaining;
-    private int score;
 
-    public UnityEvent<PlayerRole> OnRoleChangedEvent;
+    public UnityEvent<int, int> OnSectionProgressChanged;
     public UnityEvent<int> OnScoreChangedEvent;
     public UnityEvent<float> OnTimeChangedEvent;
+    public UnityEvent<PlayerRole> OnRoleChangedEvent;
     public UnityEvent OnRoundEndedEvent;
+    public UnityEvent OnSectionCompletedEvent;
+    public UnityEvent OnMistakeMadeEvent;
+ 
+    private int itemsPlacedCorrectly;
+    private int totalItemsInSection;
+    private int mistakesMade;
+    private int score;
 
     private bool roundActive;
+
+    public string currentSectionName;
+
+    private float timeRemaining;
 
     private void Awake()
     {
@@ -29,6 +41,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         StartRound();
+        StartSection("Fruits", 5);
     }
 
     public void StartRound()
@@ -79,5 +92,42 @@ public class GameManager : MonoBehaviour
         {
             PlayerPrefs.SetInt("PlayerHighscore", score);
         }
+    }
+
+    public void StartSection(string sectionName, int totalItems)
+    {
+        currentSectionName = sectionName;
+        totalItemsInSection = totalItems;
+        itemsPlacedCorrectly = 0;
+        mistakesMade = 0;
+
+        Debug.Log($"Seção '{sectionName}' iniciada — {totalItems} itens para completar.");
+        OnSectionProgressChanged?.Invoke(itemsPlacedCorrectly, totalItemsInSection);
+    }
+
+    public void OnItemPlacedCorrectly()
+    {
+        itemsPlacedCorrectly++;
+        Debug.Log($"Progresso da seção: {itemsPlacedCorrectly}/{totalItemsInSection}");
+
+        OnSectionProgressChanged?.Invoke(itemsPlacedCorrectly, totalItemsInSection);
+
+        if (itemsPlacedCorrectly >= totalItemsInSection)
+        {
+            CompleteSection();
+        }
+    }
+
+    public void OnItemPlacedWrong()
+    {
+        mistakesMade++;
+        Debug.Log($"Erro registrado. Total de erros: {mistakesMade}/{maxMistakes}");
+        OnMistakeMadeEvent?.Invoke();
+    }
+
+    private void CompleteSection()
+    {
+        Debug.Log($"=== SEÇÃO '{currentSectionName}' CONCLUÍDA === Erros cometidos: {mistakesMade}");
+        OnSectionCompletedEvent?.Invoke();
     }
 }

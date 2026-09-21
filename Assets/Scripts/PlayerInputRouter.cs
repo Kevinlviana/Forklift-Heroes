@@ -19,6 +19,7 @@ public class PlayerInputRouter : MonoBehaviour
 
     private Vector2 moveInput;
     private Vector2 forkInput;
+
     private float switchLockTimer;
 
     private void Awake()

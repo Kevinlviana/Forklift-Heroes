@@ -5,25 +5,26 @@ public class ForkOperatorController : MonoBehaviour
 {
     [SerializeField] private Transform forkLiftMount; 
     [SerializeField] private Transform forkTiltPivot; 
-
     [SerializeField] private float liftSpeed = 1.5f;
     [SerializeField] private float minHeight = 0f;
     [SerializeField] private float maxHeight = 2.5f;
-
     [SerializeField] private float tiltSpeed = 25f;
     [SerializeField] private float minTiltAngle = -10f;
     [SerializeField] private float maxTiltAngle = 15f;
-
     [SerializeField] private Transform carriedLoadSocket;
-    [SerializeField] private DriverController driverController; 
+    [SerializeField] private DriverController driverController;
+
+
+    private Vector2 forkInput;
+
     private CargoItem currentCargo;
+
     private float previousTilt;
-
-    private bool inputEnabled;
-    private Vector2 forkInput; 
-
     private float currentHeight;
     private float currentTilt;
+
+    private bool inputEnabled;
+
 
     public void SetInputEnabled(bool enabled)
     {
