@@ -19,8 +19,14 @@ public class PlayerInputRouter : MonoBehaviour
 
     private Vector2 moveInput;
     private Vector2 forkInput;
+    private bool brakeHeld;
+    private bool rushHeld;
 
     private float switchLockTimer;
+
+    private GameManager GM => gameManager != null ? gameManager : GameManager.Instance;
+    private bool RoundOpen => GM == null || GM.RoundActive;
+    private bool InputAllowed => switchLockTimer <= 0f && RoundOpen;
 
     private void Awake()
     {
@@ -35,7 +41,7 @@ public class PlayerInputRouter : MonoBehaviour
     public void OnSwitchRole(InputAction.CallbackContext context)
     {
         if (!context.performed) return;
-        if (switchLockTimer > 0f) return; 
+        if (switchLockTimer > 0f || !RoundOpen) return;
 
         CurrentRole = CurrentRole == PlayerRole.Driver
             ? PlayerRole.ForkOperator
@@ -43,7 +49,30 @@ public class PlayerInputRouter : MonoBehaviour
 
         switchLockTimer = roleSwitchDelay;
         UpdateActiveController();
-        gameManager?.OnRoleChanged(CurrentRole);
+        if (gameManager != null) gameManager.OnRoleChanged(CurrentRole);
+        else if (GameManager.Instance != null) GameManager.Instance.OnRoleChanged(CurrentRole);
+    }
+
+    public void OnMove(InputAction.CallbackContext context)
+    {
+        moveInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnForkControl(InputAction.CallbackContext context)
+    {
+        forkInput = context.ReadValue<Vector2>();
+    }
+
+    public void OnBrake(InputAction.CallbackContext context)
+    {
+        if (context.performed) brakeHeld = true;
+        else if (context.canceled) brakeHeld = false;
+    }
+
+    public void OnRush(InputAction.CallbackContext context)
+    {
+        if (context.performed) rushHeld = true;
+        else if (context.canceled) rushHeld = false;
     }
 
     private void Update()
@@ -52,52 +81,32 @@ public class PlayerInputRouter : MonoBehaviour
         {
             switchLockTimer -= Time.deltaTime;
         }
-    }
 
-   
-    private bool InputAllowed => switchLockTimer <= 0f;
+        bool isDriver = CurrentRole == PlayerRole.Driver;
 
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        moveInput = context.ReadValue<Vector2>();
-        if (!InputAllowed) { driverController.SetMoveInput(Vector2.zero); return; }
-
-        if (CurrentRole == PlayerRole.Driver)
+        if (driverController != null)
         {
-            driverController.SetMoveInput(moveInput);
+            if (!InputAllowed)
+                driverController.SetMoveInput(Vector2.zero);
+            else
+                driverController.SetMoveInput(isDriver
+                    ? moveInput
+                    : moveInput * driverController.OperatorModeSpeedMultiplier);
+
+            driverController.SetBraking(!RoundOpen || (brakeHeld && isDriver));
+            driverController.SetRushHeld(rushHeld && isDriver && RoundOpen);
         }
-        else
+
+        if (forkOperatorController != null)
         {
-            driverController.SetMoveInput(moveInput * driverController.OperatorModeSpeedMultiplier);
+            forkOperatorController.SetForkInput(
+                InputAllowed && !isDriver ? forkInput : Vector2.zero);
         }
-    }
-
-    public void OnForkControl(InputAction.CallbackContext context)
-    {
-        forkInput = context.ReadValue<Vector2>();
-        if (!InputAllowed) return;
-
-        if (CurrentRole == PlayerRole.ForkOperator)
-        {
-            forkOperatorController.SetForkInput(forkInput);
-        }
-    }
-
-    public void OnBrake(InputAction.CallbackContext context)
-    {
-        if (CurrentRole != PlayerRole.Driver) return;
-        driverController.SetBraking(context.performed);
-    }
-
-    public void OnRush(InputAction.CallbackContext context)
-    {
-        bool held = context.performed;
-        driverController.SetRushHeld(held && CurrentRole == PlayerRole.Driver);
     }
 
     private void UpdateActiveController()
     {
- 
-        forkOperatorController.SetInputEnabled(CurrentRole == PlayerRole.ForkOperator);
+        if (forkOperatorController != null)
+            forkOperatorController.SetInputEnabled(CurrentRole == PlayerRole.ForkOperator);
     }
 }

@@ -1,0 +1,69 @@
+newmtl SM_tex_misc
+Ka 0 0 0
+Kd 1.000 1.000 1.000
+Ks 0 0 0
+d 1
+illum 1
+
+newmtl SM_tex_greens
+Ka 0 0 0
+Kd 1.000 1.000 1.000
+Ks 0 0 0
+d 1
+illum 1
+
+newmtl SM_tex_fruits
+Ka 0 0 0
+Kd 1.000 1.000 1.000
+Ks 0 0 0
+d 1
+illum 1
+
+newmtl SM_tex_sushi
+Ka 0 0 0
+Kd 1.000 1.000 1.000
+Ks 0 0 0
+d 1
+illum 1
+
+newmtl SM_tex_chips
+Ka 0 0 0
+Kd 1.000 1.000 1.000
+Ks 0 0 0
+d 1
+illum 1
+
+newmtl SM_tex_candy
+Ka 0 0 0
+Kd 1.000 1.000 1.000
+Ks 0 0 0
+d 1
+illum 1
+
+newmtl SM_tex_ramen
+Ka 0 0 0
+Kd 1.000 1.000 1.000
+Ks 0 0 0
+d 1
+illum 1
+
+newmtl SM_col_0A0A0A
+Ka 0 0 0
+Kd 0.039 0.039 0.039
+Ks 0 0 0
+d 1
+illum 1
+
+newmtl SM_col_202020
+Ka 0 0 0
+Kd 0.125 0.125 0.125
+Ks 0 0 0
+d 1
+illum 1
+
+newmtl SM_col_CCCCCC
+Ka 0 0 0
+Kd 0.800 0.800 0.800
+Ks 0 0 0
+d 1
+illum 1

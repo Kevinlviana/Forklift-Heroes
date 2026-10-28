@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdd5bb2a26c63c540aadb8e37990a30e, type: 3}
+  m_Name: ModelRegistry
+  m_EditorClassIdentifier: Assembly-CSharp::ModelRegistry
+  entries:
+  - key: apple
+    prefab: {fileID: 919132149155446097, guid: 8d8dff15088f57348a0100be8516a2df, type: 3}
+    pack: food
+  - key: banana
+    prefab: {fileID: 919132149155446097, guid: 3be0129c4d853fd43992df09c057bf6c, type: 3}
+    pack: food
+  - key: orange
+    prefab: {fileID: 919132149155446097, guid: 5fd287703b4d37441a588150c7f3c18f, type: 3}
+    pack: food
+  - key: mango
+    prefab: {fileID: 919132149155446097, guid: c203084d894f4f74ca9f5674f5e461c2, type: 3}
+    pack: food
+  - key: watermelon
+    prefab: {fileID: 919132149155446097, guid: 7d21f6f7253b6a8489b383691d2908de, type: 3}
+    pack: food
+  - key: milk
+    prefab: {fileID: 919132149155446097, guid: 6400107d03f6fb2449432277c375e889, type: 3}
+    pack: food
+  - key: milk
+    prefab: {fileID: 919132149155446097, guid: 83dc9af941a70d442958e9f408d801f3, type: 3}
+    pack: food
+  - key: yogurt
+    prefab: {fileID: 919132149155446097, guid: a52a3352a6de3044db3497e464b04b8c, type: 3}
+    pack: food
+  - key: eggs
+    prefab: {fileID: 919132149155446097, guid: 8b77dc39e708f9943a943eb16588a62e, type: 3}
+    pack: food
+  - key: can
+    prefab: {fileID: 919132149155446097, guid: c6174eb9915087b479713f058f83fd29, type: 3}
+    pack: food
+  - key: can
+    prefab: {fileID: 919132149155446097, guid: b0597f779f8d41040907d2a3d5a7f0ff, type: 3}
+    pack: food
+  - key: can
+    prefab: {fileID: 919132149155446097, guid: 9b8118055a32f344588a0bad5a694683, type: 3}
+    pack: food
+  - key: can
+    prefab: {fileID: 919132149155446097, guid: 100ffdb2305cbb54f89ec26b5967494f, type: 3}
+    pack: food
+  - key: juice
+    prefab: {fileID: 919132149155446097, guid: fd4145b8cf953044ab8710a2b4fc5244, type: 3}
+    pack: food
+  - key: juice
+    prefab: {fileID: 919132149155446097, guid: d1d5279ce50e1294096fced2fb90eb3f, type: 3}
+    pack: food
+  - key: juice
+    prefab: {fileID: 919132149155446097, guid: 2c325671e60db8744b46fce2bb581da7, type: 3}
+    pack: food
+  - key: barrel
+    prefab: {fileID: 919132149155446097, guid: a4eb03bf54c0e81468e86ff12d82abf5, type: 3}
+    pack: forklift
+  - key: barrel
+    prefab: {fileID: 919132149155446097, guid: b9759f3b3d2918d41bb412f72b9a0bd5, type: 3}
+    pack: storage
+  - key: barrel
+    prefab: {fileID: 919132149155446097, guid: 039efb8c5da7da440b9977c5538e2af4, type: 3}
+    pack: storage
+  - key: barrel
+    prefab: {fileID: 919132149155446097, guid: 9d31f6b1113ba904ea7039133c2bdef0, type: 3}
+    pack: storage
+  - key: barrel
+    prefab: {fileID: 919132149155446097, guid: fdf4d21476a04d84b8ac4f81a1903ff4, type: 3}
+    pack: storage
+  - key: pallet
+    prefab: {fileID: 919132149155446097, guid: c749dc16f5919f744bc2b92ca85bbe74, type: 3}
+    pack: storage
+  - key: pallet
+    prefab: {fileID: 919132149155446097, guid: ae49d322d3b386f468667c1246244098, type: 3}
+    pack: forklift
+  - key: crate
+    prefab: {fileID: 919132149155446097, guid: 26cb2590c9aa46544b4b2e8b7bac38eb, type: 3}
+    pack: storage
+  - key: crate
+    prefab: {fileID: 919132149155446097, guid: cd24a84ae5840ee44a662331e84cfc79, type: 3}
+    pack: storage
+  - key: crate
+    prefab: {fileID: 919132149155446097, guid: 9d849789c8ce03b44bbbdc0db9c1aeb4, type: 3}
+    pack: storage
+  - key: crate
+    prefab: {fileID: 919132149155446097, guid: c540ab6bbf4f19447b303e698587ca84, type: 3}
+    pack: storage
+  - key: carton
+    prefab: {fileID: 919132149155446097, guid: d554f0eaa9595824ea07732c53f7f73a, type: 3}
+    pack: forklift
+  - key: carton
+    prefab: {fileID: 919132149155446097, guid: 464207fff931a5b4ab92d1c16343761a, type: 3}
+    pack: forklift
+  - key: carton
+    prefab: {fileID: 919132149155446097, guid: 38915809c9e47144e8b9bb9f423acd69, type: 3}
+    pack: forklift
+  - key: rack
+    prefab: {fileID: 919132149155446097, guid: 3998f91abc0158e47baae2d784c76e2c, type: 3}
+    pack: storage
+  - key: rack
+    prefab: {fileID: 919132149155446097, guid: 5c623e64c1da6f94bb8d07ef83e5ff5f, type: 3}
+    pack: storage
+  - key: shelfrack
+    prefab: {fileID: 919132149155446097, guid: 3998f91abc0158e47baae2d784c76e2c, type: 3}
+    pack: storage
+  - key: forklift
+    prefab: {fileID: 919132149155446097, guid: cd4eef2266a6b494882df30649043c68, type: 3}
+    pack: forklift
+  - key: mktgondola
+    prefab: {fileID: 919132149155446097, guid: 6c2326d05bd11b244a06421486b0733a, type: 3}
+    pack: market
+  - key: mktgondola
+    prefab: {fileID: 919132149155446097, guid: b045231ec0eabbf468875a0c3c05d48a, type: 3}
+    pack: market
+  - key: mktgondola
+    prefab: {fileID: 919132149155446097, guid: 48998d0c0823bdd4482b372cd7c5f5f9, type: 3}
+    pack: market
+  - key: mktfridge
+    prefab: {fileID: 919132149155446097, guid: ce428f829562eba4e8a165e78f19726f, type: 3}
+    pack: market
+  - key: mktfridge
+    prefab: {fileID: 919132149155446097, guid: ec769b2103259834d9452c2e4c8c005a, type: 3}
+    pack: market
+  - key: mktpos
+    prefab: {fileID: 919132149155446097, guid: 87613085dbe0b534baa352bb38eca23b, type: 3}
+    pack: market
+  - key: floortile
+    prefab: {fileID: 919132149155446097, guid: 542ea7afd80fd3243a019fd1a47db725, type: 3}
+    pack: forklift
+  - key: floorstripes
+    prefab: {fileID: 919132149155446097, guid: 3d4499cf7db559644a18e63bc0d9888e, type: 3}
+    pack: forklift

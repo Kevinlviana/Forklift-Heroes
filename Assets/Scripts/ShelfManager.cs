@@ -12,7 +12,7 @@ public class ShelfManager : MonoBehaviour
     public static ShelfManager Instance { get; private set; }
 
     private ShelfSlot currentHighlighted;
-   
+
     private void Awake()
     {
         Instance = this;
@@ -22,14 +22,14 @@ public class ShelfManager : MonoBehaviour
     {
         ClearHighlight();
 
-        foreach (var slot in allSlots)
+        foreach (var slot in ShelfSlot.All)
         {
             if (slot.slotId == cargo.targetSlotId)
             {
                 slot.SetHighlighted(true);
                 currentHighlighted = slot;
                 OnTargetHighlighted?.Invoke(slot.sectionName, slot.slotId);
-                break;
+                return;
             }
         }
     }

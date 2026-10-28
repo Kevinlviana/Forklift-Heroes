@@ -1,10 +1,9 @@
 using UnityEngine;
-using static CargoItem;
 
 public class ForkOperatorController : MonoBehaviour
 {
-    [SerializeField] private Transform forkLiftMount; 
-    [SerializeField] private Transform forkTiltPivot; 
+    [SerializeField] private Transform forkLiftMount;
+    [SerializeField] private Transform forkTiltPivot;
     [SerializeField] private float liftSpeed = 1.5f;
     [SerializeField] private float minHeight = 0f;
     [SerializeField] private float maxHeight = 2.5f;
@@ -13,7 +12,6 @@ public class ForkOperatorController : MonoBehaviour
     [SerializeField] private float maxTiltAngle = 15f;
     [SerializeField] private Transform carriedLoadSocket;
     [SerializeField] private DriverController driverController;
-
 
     private Vector2 forkInput;
 
@@ -25,6 +23,19 @@ public class ForkOperatorController : MonoBehaviour
 
     private bool inputEnabled;
 
+    public CargoItem CurrentCargo => currentCargo;
+    public Transform ForkMount => forkLiftMount;
+
+
+    public float MaxCargoHeightWorld
+    {
+        get
+        {
+            float scaleY = forkLiftMount != null && forkLiftMount.parent != null ? forkLiftMount.parent.lossyScale.y : 1f;
+            float baseY = carriedLoadSocket != null ? carriedLoadSocket.position.y : transform.position.y;
+            return baseY + (maxHeight - currentHeight) * scaleY;
+        }
+    }
 
     public void SetInputEnabled(bool enabled)
     {
@@ -65,28 +76,29 @@ public class ForkOperatorController : MonoBehaviour
     public bool TryPickUpCargo(CargoItem cargo)
     {
         if (currentCargo != null || cargo == null) return false;
+        if (cargo.IsCarried || cargo.Locked) return false;
 
         currentCargo = cargo;
-        cargo.AttachTo(carriedLoadSocket);
+        cargo.AttachTo(carriedLoadSocket, this);
 
         float speedMultiplier = cargo.cargoType == CargoType.Heavy
             ? cargo.heavyMoveSpeedMultiplier
             : 1f;
-        driverController?.SetCarriedCargoSpeedMultiplier(speedMultiplier);
+        if (driverController != null) driverController.SetCarriedCargoSpeedMultiplier(speedMultiplier);
 
         return true;
     }
 
-    public bool TryDropCargo(DeliveryZone zone)
-    {
-        if (currentCargo == null) return false;
 
-        bool success = zone != null && zone.AcceptDelivery(currentCargo);
-        if (success)
-        {
-            currentCargo = null;
-            driverController?.SetCarriedCargoSpeedMultiplier(1f); 
-        }
-        return success;
+    public void NotifyCargoReleased(CargoItem cargo)
+    {
+        if (cargo != currentCargo) return;
+        currentCargo = null;
+        if (driverController != null) driverController.SetCarriedCargoSpeedMultiplier(1f);
+    }
+
+    public void ApplyImpactToCargo(float impactSpeed)
+    {
+        if (currentCargo != null) currentCargo.EvaluateImpact(impactSpeed);
     }
 }
